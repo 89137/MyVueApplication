@@ -6,7 +6,7 @@ import { showError, showSuccess } from '@/utils/toast'
 
 const toast = useToast()
 
-const frogTable = ref<unkown[]>([])
+const frogTable = ref<any[]>([])
 const isLoading = ref(true)
 
 onMounted(() => {
