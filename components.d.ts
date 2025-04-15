@@ -14,6 +14,7 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     MainNavbar: typeof import('./src/components/MainNavbar.vue')['default']
     MegaMenu: typeof import('primevue/megamenu')['default']
+    Menubar: typeof import('primevue/menubar')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Skeleton: typeof import('primevue/skeleton')['default']
