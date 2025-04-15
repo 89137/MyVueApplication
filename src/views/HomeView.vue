@@ -52,9 +52,9 @@ const loadEntries = async () => {
       <Skeleton v-if="isLoading" />
       <div v-else>
         <div class="flex justify-center">
-          <form>
-            <input-text class="m-5" name="fname" v-model="frogInput" />
-            <Button @click="onclickAdd" class="!p-2" label="Add"></Button>
+          <form @submit.prevent="onClickAdd">
+            <InputText class="m-5" name="fname" v-model="frogInput" required />
+            <Button type="submit" class="!p-2" label="Add" />
           </form>
         </div>
         <ol>
