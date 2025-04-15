@@ -3,6 +3,14 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
+const darkToggle = ref(false)
+
+function toggleDarkMode() {
+  document.documentElement.classList.toggle('my-app-dark')
+  darkToggle.value = !darkToggle.value
+  console.log(darkToggle.value)
+}
+
 const route = useRoute()
 
 const items = ref([
@@ -23,11 +31,11 @@ const isActiveRoute = (itemRoute) => route.name === itemRoute
   <div class="card">
     <MegaMenu :model="items" class="p-4 bg-surface-0" style="border-radius: 2rem">
       <template #start>
-        <Image src="/images/axolotll.png" alt="Axolotll" width="35" height="40" class="h-8 pr-2" />
+        <Image src="/images/axolotll.png" alt="Axolotll" width="35" height="40" class="h-8 px-2" />
       </template>
 
       <template #item="{ item }">
-        <div :class="['p-megamenu-item-content', isActiveRoute(item.route) ? 'bg-gray-800 ' : '']">
+        <div :class="['p-megamenu-item-content', isActiveRoute(item.route) ? 'navbar ' : '']">
           <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
             <a
               v-ripple
@@ -39,6 +47,12 @@ const isActiveRoute = (itemRoute) => route.name === itemRoute
               <span>{{ item.label }}</span>
             </a>
           </router-link>
+        </div>
+      </template>
+      <template #end>
+        <div class="hover:cursor-pointer pr-2" @click="toggleDarkMode()">
+          <i v-if="!darkToggle" class="pi pi-sun"></i>
+          <i v-else class="pi pi-moon"></i>
         </div>
       </template>
     </MegaMenu>

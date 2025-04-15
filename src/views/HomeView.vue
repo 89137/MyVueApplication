@@ -36,7 +36,7 @@ const loadEntries = async () => {
 
   if (data) {
     frogTable.value = data.sort((a, b) => a.id - b.id)
-    showSuccess(toast, 'Content loaded')
+    // showSuccess(toast, 'Content loaded')
     isLoading.value = false
   }
   if (error) {
@@ -51,20 +51,21 @@ const loadEntries = async () => {
     <template #content>
       <Skeleton v-if="isLoading" />
       <div v-else>
+        <div class="flex justify-center">
+          <form>
+            <input-text class="m-5" name="fname" v-model="frogInput" />
+            <Button @click="onclickAdd" class="!p-2" label="Add"></Button>
+          </form>
+        </div>
         <ol>
           <div v-if="frogTable.length === 0">No frogs available</div>
 
           <li v-for="frogs in frogTable" :key="frogs.id">
-            <div>
-              <Button label="delete" @click="onclickDelete(frogs.id)"></Button>
+            <div class="border-b mb-3">
+              <Button class="!p-1 m-2" label="delete" @click="onclickDelete(frogs.id)"></Button>
               {{ frogs.id }} {{ frogs.frogs }}
             </div>
           </li>
-          <form>
-            <label for="fname">First Name</label>
-            <input-text name="fname" v-model="frogInput" />
-          </form>
-          <Button @click="onclickAdd" label="frog"></Button>
         </ol>
       </div>
     </template>
