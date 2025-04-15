@@ -11,8 +11,7 @@ import { ToastService } from 'primevue'
 const app = createApp(App)
 
 const MyPreset = definePreset(Aura, {
-  semantic: {
-}
+  semantic: {},
 })
 
 app.use(router)
@@ -21,9 +20,9 @@ app.use(Primevue, {
   theme: {
     preset: MyPreset,
     options: {
-      darkModeSelector: 'system'
-    }
-  }
+      darkModeSelector: 'system',
+    },
+  },
 })
 
 app.mount('#app')

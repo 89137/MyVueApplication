@@ -6,8 +6,26 @@ import { showError, showSuccess } from '@/utils/toast'
 
 const toast = useToast()
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const frogTable = ref<any[]>([])
 const isLoading = ref(true)
+const frogInput = ref<string>()
+
+async function onclickAdd() {
+  console.log(frogInput.value)
+
+  await supabase.from('frogTable').insert([{ frogs: frogInput.value }])
+
+  await loadEntries()
+}
+
+async function onclickDelete(id: string) {
+  console.log(id)
+
+  await supabase.from('frogTable').delete().eq('id', id)
+
+  await loadEntries()
+}
 
 onMounted(() => {
   loadEntries()
@@ -37,8 +55,16 @@ const loadEntries = async () => {
           <div v-if="frogTable.length === 0">No frogs available</div>
 
           <li v-for="frogs in frogTable" :key="frogs.id">
-            <div>{{ frogs.id }} {{ frogs.frogs }}</div>
+            <div>
+              <Button label="delete" @click="onclickDelete(frogs.id)"></Button>
+              {{ frogs.id }} {{ frogs.frogs }}
+            </div>
           </li>
+          <form>
+            <label for="fname">First Name</label>
+            <input-text name="fname" v-model="frogInput" />
+          </form>
+          <Button @click="onclickAdd" label="frog"></Button>
         </ol>
       </div>
     </template>
