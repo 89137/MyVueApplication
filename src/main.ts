@@ -25,7 +25,7 @@ app.use(Primevue, {
   theme: {
     preset: MyPreset,
     options: {
-      darkModeSelector: '.my-app-dark',
+      darkModeSelector: 'system',
     },
   },
 })

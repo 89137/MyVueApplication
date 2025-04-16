@@ -10,18 +10,22 @@ const toast = useToast()
 const frogTable = ref<any[]>([])
 const isLoading = ref(true)
 const frogInput = ref<string>()
+const frogUpdates = ref<Record<string, string>>({})
+
 const user = ref(true)
 
 async function onclickAdd() {
   await supabase.from('frogTable').insert([{ frogs: frogInput.value }])
-
-  await loadEntries()
+  frogInput.value = ''
 }
 
 async function onclickDelete(id: string) {
   await supabase.from('frogTable').delete().eq('id', id)
+}
 
-  await loadEntries()
+async function onclickUpdate(id: string) {
+  const updatedValue = frogUpdates.value[id]
+  await supabase.from('frogTable').update({ frogs: updatedValue }).eq('id', id)
 }
 
 onMounted(() => {
@@ -34,7 +38,7 @@ const loadEntries = async () => {
   if (data) {
     frogTable.value = data.sort((a, b) => a.id - b.id)
     subscribeEntries()
-    showSuccess(toast, 'Content loaded')
+    // showSuccess(toast, 'Content loaded')
     isLoading.value = false
   }
   if (error) {
@@ -83,13 +87,17 @@ const subscribeEntries = () => {
 
           <li v-for="frogs in frogTable" :key="frogs.id">
             <div class="border-b mb-3 min-h-[50px]">
-              <Button
-                v-if="user"
-                class="!p-1 m-2"
-                label="delete"
-                @click="onclickDelete(frogs.id)"
-              ></Button>
               {{ frogs.id }} {{ frogs.frogs }}
+              <form v-if="user" @submit.prevent="onclickUpdate(frogs.id)">
+                <InputText class="m-5" v-model="frogUpdates[frogs.id]" required />
+                <Button type="submit" class="!py-1" label="Edit" />
+                <Button
+                  v-if="user"
+                  class="!py-1 m-2"
+                  label="delete"
+                  @click="onclickDelete(frogs.id)"
+                ></Button>
+              </form>
             </div>
           </li>
         </ol>
