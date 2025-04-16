@@ -10,18 +10,15 @@ const toast = useToast()
 const frogTable = ref<any[]>([])
 const isLoading = ref(true)
 const frogInput = ref<string>()
+const user = ref(true)
 
 async function onclickAdd() {
-  console.log(frogInput.value)
-
   await supabase.from('frogTable').insert([{ frogs: frogInput.value }])
 
   await loadEntries()
 }
 
 async function onclickDelete(id: string) {
-  console.log(id)
-
   await supabase.from('frogTable').delete().eq('id', id)
 
   await loadEntries()
@@ -52,7 +49,7 @@ const loadEntries = async () => {
       <Skeleton v-if="isLoading" />
       <div v-else>
         <div class="flex justify-center">
-          <form @submit.prevent="onClickAdd">
+          <form @submit.prevent="onclickAdd">
             <InputText class="m-5" name="fname" v-model="frogInput" required />
             <Button type="submit" class="!p-2" label="Add" />
           </form>
@@ -61,8 +58,13 @@ const loadEntries = async () => {
           <div v-if="frogTable.length === 0">No frogs available</div>
 
           <li v-for="frogs in frogTable" :key="frogs.id">
-            <div class="border-b mb-3">
-              <Button class="!p-1 m-2" label="delete" @click="onclickDelete(frogs.id)"></Button>
+            <div class="border-b mb-3 min-h-[50px]">
+              <Button
+                v-if="user"
+                class="!p-1 m-2"
+                label="delete"
+                @click="onclickDelete(frogs.id)"
+              ></Button>
               {{ frogs.id }} {{ frogs.frogs }}
             </div>
           </li>
