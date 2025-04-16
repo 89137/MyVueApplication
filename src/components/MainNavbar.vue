@@ -1,12 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-const isDarkMode = ref(document.documentElement.classList.contains('my-app-dark'))
+const isDarkMode = ref(false)
+
+onMounted(() => {
+  const savedTheme = localStorage.getItem('dark-mode')
+  if (savedTheme === 'true') {
+    document.documentElement.classList.add('my-app-dark')
+    isDarkMode.value = true
+  } else {
+    document.documentElement.classList.remove('my-app-dark')
+    isDarkMode.value = false
+  }
+})
 
 function toggleDarkMode() {
-  document.documentElement.classList.toggle('my-app-dark')
-  isDarkMode.value = document.documentElement.classList.contains('my-app-dark')
+  isDarkMode.value = !isDarkMode.value
+  if (isDarkMode.value) {
+    document.documentElement.classList.add('my-app-dark')
+  } else {
+    document.documentElement.classList.remove('my-app-dark')
+  }
+  localStorage.setItem('dark-mode', String(isDarkMode.value))
 }
 
 const route = useRoute()
@@ -49,7 +65,7 @@ const isActiveRoute = (itemRoute: string) => route.name === itemRoute
       </template>
       <template #end>
         <div class="hover:cursor-pointer pr-2" @click="toggleDarkMode()">
-          <i v-if="isDarkMode" class="pi pi-sun"></i>
+          <i v-if="!isDarkMode" class="pi pi-sun"></i>
           <i v-else class="pi pi-moon"></i>
         </div>
       </template>

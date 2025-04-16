@@ -25,10 +25,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.my-app-dark .navbar {
+.navbar {
   background-color: lightgrey;
 }
 
-.navbar {
+.my-app-dark .navbar {
   background-color: grey;
 }
