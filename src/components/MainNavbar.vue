@@ -49,7 +49,7 @@ const isActiveRoute = (itemRoute: string) => route.name === itemRoute
       </template>
       <template #end>
         <div class="hover:cursor-pointer pr-2" @click="toggleDarkMode()">
-          <i v-if="!isDarkMode" class="pi pi-sun"></i>
+          <i v-if="isDarkMode" class="pi pi-sun"></i>
           <i v-else class="pi pi-moon"></i>
         </div>
       </template>
