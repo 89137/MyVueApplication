@@ -20,6 +20,7 @@ const router = createRouter({
       name: 'SubPage',
       component: SubPage,
     },
+    { path: '/:pathMatch(.*)*', redirect: '/home' },
   ],
 })
 
