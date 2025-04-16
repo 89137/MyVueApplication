@@ -12,7 +12,11 @@ const app = createApp(App)
 
 const MyPreset = definePreset(Aura, {
   semantic: {
-}
+    colorScheme: {
+      light: {},
+      dark: {},
+    },
+  },
 })
 
 app.use(router)
@@ -21,9 +25,9 @@ app.use(Primevue, {
   theme: {
     preset: MyPreset,
     options: {
-      darkModeSelector: 'system'
-    }
-  }
+      darkModeSelector: '.my-app-dark',
+    },
+  },
 })
 
 app.mount('#app')
