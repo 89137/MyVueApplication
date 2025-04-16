@@ -18,6 +18,7 @@ const loadEntries = async () => {
 
   if (data) {
     frogTable.value = data.sort((a, b) => a.id - b.id)
+    subscribeEntries()
     showSuccess(toast, 'Content loaded')
     isLoading.value = false
   }
@@ -25,6 +26,29 @@ const loadEntries = async () => {
     showError(toast, 'Failed to load content')
     isLoading.value = true
   }
+}
+
+const subscribeEntries = () => {
+  supabase
+    .channel('frogs-channel')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'frogTable' }, (payload) => {
+      console.log('Change received!', payload)
+
+      if (payload.eventType === 'INSERT') {
+        frogTable.value.push(payload.new)
+      }
+
+      if (payload.eventType === 'DELETE') {
+        const deletedId = payload.old.id
+        frogTable.value = frogTable.value.filter((frog) => frog.id !== deletedId)
+      }
+      if (payload.eventType === 'UPDATE') {
+        const updatedId = payload.new.id
+        const index = frogTable.value.findIndex((frog) => frog.id === updatedId)
+        if (index !== -1) Object.assign(frogTable.value[index], payload.new)
+      }
+    })
+    .subscribe()
 }
 </script>
 
