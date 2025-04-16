@@ -15,17 +15,32 @@ const frogUpdates = ref<Record<string, string>>({})
 const user = ref(true)
 
 async function onclickAdd() {
-  await supabase.from('frogTable').insert([{ frogs: frogInput.value }])
+  const { error } = await supabase.from('frogTable').insert([{ frogs: frogInput.value }])
   frogInput.value = ''
+  if (error) {
+    showError(toast, 'Failed to add content')
+  } else {
+    showSuccess(toast, 'content added')
+  }
 }
 
 async function onclickDelete(id: string) {
-  await supabase.from('frogTable').delete().eq('id', id)
+  const { error } = await supabase.from('frogTable').delete().eq('id', id)
+  if (error) {
+    showError(toast, 'Failed to delete content')
+  } else {
+    showSuccess(toast, 'content deleted')
+  }
 }
 
 async function onclickUpdate(id: string) {
   const updatedValue = frogUpdates.value[id]
-  await supabase.from('frogTable').update({ frogs: updatedValue }).eq('id', id)
+  const { error } = await supabase.from('frogTable').update({ frogs: updatedValue }).eq('id', id)
+  if (error) {
+    showError(toast, 'Failed to update content')
+  } else {
+    showSuccess(toast, 'content updated')
+  }
 }
 
 onMounted(() => {
@@ -38,7 +53,6 @@ const loadEntries = async () => {
   if (data) {
     frogTable.value = data.sort((a, b) => a.id - b.id)
     subscribeEntries()
-    // showSuccess(toast, 'Content loaded')
     isLoading.value = false
   }
   if (error) {
@@ -78,18 +92,18 @@ const subscribeEntries = () => {
       <div v-else>
         <div class="flex justify-center">
           <form @submit.prevent="onclickAdd">
-            <InputText class="m-5" name="fname" v-model="frogInput" required />
-            <Button type="submit" class="!p-2" label="Add" />
+            <InputText class="mr-3" name="fname" v-model="frogInput" required />
+            <Button type="submit" label="Add" />
           </form>
         </div>
-        <ol>
+        <ol class="p-5">
           <div v-if="frogTable.length === 0">No frogs available</div>
 
-          <li v-for="frogs in frogTable" :key="frogs.id">
+          <li v-for="frogs in frogTable" :key="frogs.id" class="list-decimal">
             <div class="border-b mb-3 min-h-[50px]">
-              {{ frogs.id }} {{ frogs.frogs }}
+              {{ frogs.frogs }}
               <form v-if="user" @submit.prevent="onclickUpdate(frogs.id)">
-                <InputText class="m-5" v-model="frogUpdates[frogs.id]" required />
+                <InputText class="my-5 mr-5" v-model="frogUpdates[frogs.id]" required />
                 <Button type="submit" class="!py-1" label="Edit" />
                 <Button
                   v-if="user"
