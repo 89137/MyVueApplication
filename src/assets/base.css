@@ -42,6 +42,10 @@ body {
   max-width: calc(100vw - 10em);
 }
 
+.p-fieldset-legend {
+  font-size: large;
+}
+
 @media only screen and (max-width: 600px) {
   .formScreen {
     display: flex;
