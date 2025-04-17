@@ -97,7 +97,7 @@ const subscribeEntries = () => {
           </form>
         </div>
         <ol class="p-5">
-          <div v-if="frogTable.length === 0">No frogs available</div>
+          <div v-if="frogTable.length === 0">No frogs available.</div>
 
           <li v-for="frogs in frogTable" :key="frogs.id" class="list-decimal">
             <div class="border-b mb-3 min-h-[50px]">
