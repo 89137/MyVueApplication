@@ -84,6 +84,13 @@ const subscribeEntries = () => {
     })
     .subscribe()
 }
+
+const size = ref({ label: 'Normal', value: 'null' })
+const sizeOptions = ref([
+  { label: 'Small', value: 'small' },
+  { label: 'Normal', value: 'null' },
+  { label: 'Large', value: 'large' },
+])
 </script>
 
 <template>
@@ -100,6 +107,7 @@ const subscribeEntries = () => {
         </div>
         <Fieldset legend="My frogs" class="tableHeight">
           <DataTable
+            :size="size.value"
             :value="frogTable"
             scrollable
             scrollHeight="calc(100vh - 30em)"
@@ -107,8 +115,17 @@ const subscribeEntries = () => {
             stripedRows
             :rows="50"
             :rowsPerPageOptions="[5, 10, 20, 50]"
-            class="max-width-[calc(100vw - 10em);]"
           >
+            <template #header>
+              <div class="flex justify-center mb-6">
+                <SelectButton
+                  v-model="size"
+                  :options="sizeOptions"
+                  optionLabel="label"
+                  dataKey="label"
+                />
+              </div>
+            </template>
             <Column header="Number" style="width: 10%">
               <template #body="slotProps">
                 {{ slotProps.index + 1 }}

@@ -33,11 +33,6 @@ body {
   background-color: rgba(46, 138, 104, 0.884);
 }
 
-.tableHeight {
-  max-height: calc(100vh - 20em);
-  height: 100%;
-}
-
 .p-datatable {
   max-width: calc(100vw - 10em);
 }
