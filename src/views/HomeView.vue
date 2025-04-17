@@ -84,13 +84,6 @@ const subscribeEntries = () => {
     })
     .subscribe()
 }
-
-const size = ref({ label: 'Normal', value: 'null' })
-const sizeOptions = ref([
-  { label: 'Small', value: 'small' },
-  { label: 'Normal', value: 'null' },
-  { label: 'Large', value: 'large' },
-])
 </script>
 
 <template>
@@ -105,53 +98,44 @@ const sizeOptions = ref([
             <Button type="submit" label="Add" />
           </form>
         </div>
-        <Fieldset legend="My frogs" class="tableHeight">
-          <DataTable
-            :size="size.value"
-            :value="frogTable"
-            scrollable
-            scrollHeight="calc(100vh - 30em)"
-            paginator
-            stripedRows
-            :rows="50"
-            :rowsPerPageOptions="[5, 10, 20, 50]"
-          >
-            <template #header>
-              <div class="flex justify-center mb-6">
-                <SelectButton
-                  v-model="size"
-                  :options="sizeOptions"
-                  optionLabel="label"
-                  dataKey="label"
-                />
-              </div>
-            </template>
-            <Column header="Number" style="width: 10%">
-              <template #body="slotProps">
-                {{ slotProps.index + 1 }}
-              </template>
-            </Column>
-            <Column header="Name" style="width: 40%">
-              <template #body="slotProps">
-                <div class="textSize">
-                  {{ slotProps.data.frogs }}
-                </div>
-              </template>
-            </Column>
-            <Column v-if="user" header="Actions" style="width: 50%">
-              <template #body="slotProps">
-                <form @submit.prevent="onclickUpdate(slotProps.data.id)">
-                  <InputText class="mr-5" v-model="frogUpdates[slotProps.data.id]" required />
-                  <Button type="submit" class="!py-1" label="Edit" />
-                  <Button
-                    class="!py-1 m-2"
-                    label="Delete"
-                    @click="onclickDelete(slotProps.data.id)"
-                  />
-                </form>
-              </template>
-            </Column>
-          </DataTable>
+        <Fieldset legend="My frogs">
+          <div class="tableHeight">
+            <DataTable
+              :value="frogTable"
+              scrollable
+              scrollHeight="calc(100vh - 25em)"
+              paginator
+              stripedRows
+              :rows="50"
+              :rowsPerPageOptions="[5, 10, 20, 50]"
+            >
+              <Column header="Number" style="width: 10%">
+                <template #body="slotProps">
+                  {{ slotProps.index + 1 }}
+                </template>
+              </Column>
+              <Column header="Name" style="width: 40%">
+                <template #body="slotProps">
+                  <div class="textSize">
+                    {{ slotProps.data.frogs }}
+                  </div>
+                </template>
+              </Column>
+              <Column v-if="user" header="Actions" style="width: 50%">
+                <template #body="slotProps">
+                  <form @submit.prevent="onclickUpdate(slotProps.data.id)">
+                    <InputText class="mr-5" v-model="frogUpdates[slotProps.data.id]" required />
+                    <Button type="submit" class="!py-1" label="Edit" />
+                    <Button
+                      class="!py-1 m-2"
+                      label="Delete"
+                      @click="onclickDelete(slotProps.data.id)"
+                    />
+                  </form>
+                </template>
+              </Column>
+            </DataTable>
+          </div>
         </Fieldset>
       </div>
     </template>
