@@ -133,7 +133,7 @@ const sizeOptions = ref([
             </Column>
             <Column header="Name" style="width: 40%">
               <template #body="slotProps">
-                <div>
+                <div class="textSize">
                   {{ slotProps.data.frogs }}
                 </div>
               </template>

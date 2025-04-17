@@ -41,15 +41,26 @@ body {
   font-size: large;
 }
 
+@media only screen and (max-width: 800px) {
+  .p-button {
+    margin-top: 10px;
+    width: 6.2em;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .formScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+  .textSize {
+    font-weight: 100;
+  }
 
   .p-button {
     margin-top: 10px;
-    width: 6em;
+    width: 6.2em;
+    height: 1.9em;
   }
 }
