@@ -92,8 +92,8 @@ const subscribeEntries = () => {
       <Skeleton v-if="isLoading" />
       <div v-else>
         <div v-if="user" class="flex items-center flex-col">
-          <form @submit.prevent="onclickAdd">
-            <p class="text-1xl">Add a frog:</p>
+          <form @submit.prevent="onclickAdd" class="formScreen">
+            <p class="text-1xl pr-1">Add a frog:</p>
             <InputText class="mr-3" name="fname" v-model="frogInput" required />
             <Button type="submit" label="Add" />
           </form>
