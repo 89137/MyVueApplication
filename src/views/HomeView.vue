@@ -99,7 +99,7 @@ const subscribeEntries = () => {
             <form @submit.prevent="onclickAdd" class="formScreen">
               <p class="text-1xl pr-1">Add a frog:</p>
               <InputText class="mr-3" name="fname" v-model="frogInput" required />
-              <Button type="submit" label="Add" />
+              <Button type="submit" label="Add" v-tooltip="'Add a frog'" />
             </form>
           </div>
           <div v-else>A small project made in preperation for my exam</div>
@@ -117,7 +117,7 @@ const subscribeEntries = () => {
             >
               <Column header="Number" style="width: 10%">
                 <template #body="slotProps">
-                  {{ slotProps.index + 1 }}
+                  {{ slotProps.data.id }}
                 </template>
               </Column>
               <Column header="Name" style="width: 40%">
@@ -130,12 +130,23 @@ const subscribeEntries = () => {
               <Column v-if="user" header="Actions" style="width: 50%">
                 <template #body="slotProps">
                   <form @submit.prevent="onclickUpdate(slotProps.data.id)">
-                    <InputText class="mr-5" v-model="frogUpdates[slotProps.data.id]" required />
-                    <Button type="submit" class="!py-1" label="Edit" />
+                    <InputText
+                      class="mr-5"
+                      v-model="frogUpdates[slotProps.data.id]"
+                      required
+                      v-tooltip.top="'New frog content'"
+                    />
+                    <Button
+                      type="submit"
+                      class="!py-1"
+                      label="Edit"
+                      v-tooltip.top="'Edit the frog'"
+                    />
                     <Button
                       class="!py-1 m-2"
                       label="Delete"
                       @click="onclickDelete(slotProps.data.id)"
+                      v-tooltip.top="'Delete the frog'"
                     />
                   </form>
                 </template>
