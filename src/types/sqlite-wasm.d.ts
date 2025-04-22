@@ -7,7 +7,8 @@ declare module '@sqlite.org/sqlite-wasm' {
     onready?: OnreadyFunction
     worker?: Worker | (() => Worker)
     generateMessageId?: (messageObject: unknown) => string
-    debug?: (...args: unknown[]) => void
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    debug?: (...args: any[]) => void
     onunhandled?: (event: MessageEvent) => void
   }
 
