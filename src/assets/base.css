@@ -23,6 +23,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: hidden;
 }
 
 .navbar {
@@ -33,16 +34,18 @@ body {
   background-color: rgba(46, 138, 104, 0.884);
 }
 
-.tableHeight {
-  min-height: calc(100vh - 20em);
-}
-
 .p-datatable {
   max-width: calc(100vw - 10em);
+  min-height: calc(100vh - 20em);
 }
 
 .p-fieldset-legend {
   font-size: large;
+}
+.p-datatable-paginator-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 @media only screen and (max-width: 800px) {
@@ -66,5 +69,11 @@ body {
     margin-top: 10px;
     width: 6.2em;
     height: 1.9em;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  body {
+    overflow-y: auto;
   }
 }

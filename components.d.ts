@@ -8,6 +8,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Avatar: typeof import('primevue/avatar')['default']
+    Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
     Column: typeof import('primevue/column')['default']
@@ -17,10 +19,13 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     MainNavbar: typeof import('./src/components/MainNavbar.vue')['default']
     MegaMenu: typeof import('primevue/megamenu')['default']
+    Menu: typeof import('primevue/menu')['default']
     Menubar: typeof import('primevue/menubar')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SelectButton: typeof import('primevue/selectbutton')['default']
+    Sidebar: typeof import('primevue/sidebar')['default']
+    SideBar: typeof import('./src/components/SideBar.vue')['default']
     Skeleton: typeof import('primevue/skeleton')['default']
     Toast: typeof import('primevue/toast')['default']
   }
