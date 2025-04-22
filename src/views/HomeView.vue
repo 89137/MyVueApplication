@@ -90,16 +90,19 @@ const subscribeEntries = () => {
 </script>
 
 <template>
-  <Card>
+  <Card class="overflow-auto">
     <template #content>
       <Skeleton v-if="isLoading" />
       <div v-else>
-        <div v-if="user" class="flex items-center flex-col">
-          <form @submit.prevent="onclickAdd" class="formScreen">
-            <p class="text-1xl pr-1">Add a frog:</p>
-            <InputText class="mr-3" name="fname" v-model="frogInput" required />
-            <Button type="submit" label="Add" />
-          </form>
+        <div class="flex items-center flex-col">
+          <div v-if="user">
+            <form @submit.prevent="onclickAdd" class="formScreen">
+              <p class="text-1xl pr-1">Add a frog:</p>
+              <InputText class="mr-3" name="fname" v-model="frogInput" required />
+              <Button type="submit" label="Add" />
+            </form>
+          </div>
+          <div v-else>A small project made in preperation for my exam</div>
         </div>
         <Fieldset legend="My frogs">
           <div class="tableHeight">
