@@ -22,6 +22,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SelectButton: typeof import('primevue/selectbutton')['default']
     Skeleton: typeof import('primevue/skeleton')['default']
+    SQLitePlayground: typeof import('./src/components/SQLitePlayground.vue')['default']
     Toast: typeof import('primevue/toast')['default']
   }
   export interface ComponentCustomProperties {

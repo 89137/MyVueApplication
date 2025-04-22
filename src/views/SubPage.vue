@@ -1,3 +1,5 @@
 <template>
-  <div></div>
+  <div>
+    <SQLite-Playground />
+  </div>
 </template>
