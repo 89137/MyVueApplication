@@ -7,7 +7,7 @@ const sqlQuery = ref('SELECT * FROM test_table')
 const queryResult = ref<unknown[]>([])
 const queryError = ref<string | null>(null)
 
-// Predefined example queries for testing
+
 const exampleQueries = [
   { title: 'Select all', query: 'SELECT * FROM test_table' },
   { title: 'Insert', query: "INSERT INTO test_table (name) VALUES ('New Test Item')" },
