@@ -3,10 +3,10 @@ import { onMounted, ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
 import { useToast } from 'primevue'
 import { showError, showSuccess } from '@/utils/toast'
-import { user } from '@/utils/user'
+import { admin } from '@/utils/admin'
 
 export interface Iprops {
-  user: boolean
+  admin: boolean
 }
 
 const toast = useToast()
@@ -95,7 +95,7 @@ const subscribeEntries = () => {
       <Skeleton v-if="isLoading" />
       <div v-else>
         <div class="flex items-center flex-col">
-          <div v-if="user">
+          <div v-if="admin">
             <form @submit.prevent="onclickAdd" class="formScreen">
               <p class="text-1xl pr-1">Add a frog:</p>
               <InputText class="mr-3" name="fname" v-model="frogInput" required />
@@ -127,7 +127,7 @@ const subscribeEntries = () => {
                   </div>
                 </template>
               </Column>
-              <Column v-if="user" header="Actions" style="width: 50%">
+              <Column v-if="admin" header="Actions" style="width: 50%">
                 <template #body="slotProps">
                   <form @submit.prevent="onclickUpdate(slotProps.data.id)">
                     <InputText

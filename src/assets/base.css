@@ -77,3 +77,9 @@ body {
     overflow-y: auto;
   }
 }
+
+@media only screen and (max-width: 450px) {
+  .p-paginator {
+    height: 5.5em;
+  }
+}
