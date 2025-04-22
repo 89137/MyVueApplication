@@ -12,7 +12,7 @@ const isLoading = ref(true)
 const frogInput = ref<string>()
 const frogUpdates = ref<Record<string, string>>({})
 
-const user = ref(true)
+const user = import.meta.env.VITE_IS_USER === 'true'
 
 async function onclickAdd() {
   const { error } = await supabase.from('frogTable').insert([{ frogs: frogInput.value }])
