@@ -3,6 +3,11 @@ import { onMounted, ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
 import { useToast } from 'primevue'
 import { showError, showSuccess } from '@/utils/toast'
+import { user } from '@/utils/user'
+
+export interface Iprops {
+  user: boolean
+}
 
 const toast = useToast()
 
@@ -11,8 +16,6 @@ const frogTable = ref<any[]>([])
 const isLoading = ref(true)
 const frogInput = ref<string>()
 const frogUpdates = ref<Record<string, string>>({})
-
-const user = import.meta.env.VITE_IS_USER === 'true'
 
 async function onclickAdd() {
   const { error } = await supabase.from('frogTable').insert([{ frogs: frogInput.value }])
