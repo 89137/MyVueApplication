@@ -1,3 +1,8 @@
+:root {
+  --primary-light-500: lightgray;
+  /* --primary-dark-500: rgba(46, 138, 104, 0.884); */
+  --primary-dark-500: #71717a;
+}
 body {
   min-height: 100vh;
   color: var(--color-text);
@@ -27,11 +32,11 @@ body {
 }
 
 .navbar {
-  background-color: lightgrey;
+  background-color: var(--primary-light-500);
 }
 
 .my-app-dark .navbar {
-  background-color: rgba(46, 138, 104, 0.884);
+  background-color: var(--primary-dark-500);
 }
 
 .p-datatable {
