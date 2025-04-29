@@ -30,7 +30,7 @@ const MyPreset = definePreset(Aura, {
         },
         surface: {
           0: '{zinc.50}',
-          50: '{gray.50}',
+          50: '{gray.100}',
           100: '{zinc.100}',
           200: '{zinc.200}',
           300: '{zinc.300}',
