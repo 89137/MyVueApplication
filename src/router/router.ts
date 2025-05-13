@@ -27,7 +27,7 @@ const router = createRouter({
       name: 'KaartPage',
       component: KaartPage,
     },
-    { path: '/:pathMatch(.*)*', redirect: '/home' },
+    { path: '/:pathMatch(.*)*', redirect: '/KaartPage' },
   ],
 })
 
