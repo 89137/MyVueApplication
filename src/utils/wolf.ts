@@ -11,7 +11,10 @@ export function useWolf() {
   const wolfTable = ref<any[]>([])
   const isLoading = ref(true)
   const wolfInputAantal = ref<number>()
-  const wolfUpdates = ref<Record<number, number>>({})
+  const wolfUpdates = ref<Record<string, number | null>>({})
+
+
+
 
   const loadEntries = async () => {
     const { data, error } = await supabase.from('wolfTable').select('*')
@@ -75,7 +78,7 @@ export function useWolf() {
       showError(toast, 'Update gefaald')
     } else {
       showSuccess(toast, 'Wolves toegevoegd')
-      wolfUpdates.value[id] = ''
+      wolfUpdates.value[id] = null
     }
   }
 
