@@ -1,6 +1,6 @@
 import HomeView from '@/views/HomeView.vue'
 import SubPage from '@/views/SubPage.vue'
-import Kaart from '@/views/KaartPage.vue'
+import KaartPage from '@/views/KaartPage.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -23,9 +23,9 @@ const router = createRouter({
       component: SubPage,
     },
     {
-      path: '/Kaart',
-      name: 'Kaart',
-      component: Kaart,
+      path: '/KaartPage',
+      name: 'KaartPage',
+      component: KaartPage,
     },
     { path: '/:pathMatch(.*)*', redirect: '/home' },
   ],
