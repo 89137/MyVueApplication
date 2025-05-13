@@ -14,8 +14,9 @@ const toast = useToast()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const wolfTable = ref<any[]>([])
 const isLoading = ref(true)
-const wolfInput = ref<string>()
+const wolfInputAantal = ref<number>()
 const wolfUpdates = ref<Record<string, string>>({})
+
 
 onMounted(() => {
   loadEntries()
@@ -36,8 +37,8 @@ const loadEntries = async () => {
 }
 
 async function onclickAdd() {
-  const { error } = await supabase.from('wolfTable').insert([{ naam: wolfInput.value }])
-  wolfInput.value = ''
+  const { error } = await supabase.from('wolfTable').insert([{ aantal: wolfInputAantal.value }])
+  wolfInputAantal.value = 0
   if (error) {
     showError(toast, 'Failed to add content')
   } else {
@@ -54,13 +55,36 @@ async function onclickDelete(id: number) {
   }
 }
 
-async function onclickUpdate(id: string) {
-  const updatedValue = wolfUpdates.value[id]
-  const { error } = await supabase.from('wolfTable').update({ naam: updatedValue }).eq('id', id)
-  if (error) {
-    showError(toast, 'Failed to update content')
+async function onclickUpdate(id: number) {
+  const inputValue = Number(wolfUpdates.value[id])
+  if (isNaN(inputValue)) {
+    showError(toast, 'Ongeldige invoer')
+    return
+  }
+
+  // Haal het huidige aantal op
+  const { data, error: fetchError } = await supabase
+    .from('wolfTable')
+    .select('aantal')
+    .eq('id', id)
+    .single()
+
+  if (fetchError || !data) {
+    showError(toast, 'Kan huidige hoeveelheid niet ophalen')
+    return
+  }
+
+  const updatedAantal = data.aantal + inputValue
+
+  const { error: updateError } = await supabase
+    .from('wolfTable')
+    .update({ aantal: updatedAantal })
+    .eq('id', id)
+
+  if (updateError) {
+    showError(toast, 'Bijwerken mislukt')
   } else {
-    showSuccess(toast, 'Content updated')
+    showSuccess(toast, 'Wolven toegevoegd')
     wolfUpdates.value[id] = ''
   }
 }
@@ -98,7 +122,7 @@ const subscribeEntries = () => {
         <div class="flex items-center flex-col">
           <form @submit.prevent="onclickAdd" class="formScreen">
               <p class="text-1xl pr-1">Add a wolf:</p>
-              <InputText class="mr-3" name="name" v-model="wolfInput" required />
+              <InputNumber class="mr-3" name="name" v-model.number="wolfInputAantal" required />
               <Button type="submit" label="Add" v-tooltip="'Add a wolf'" />
             </form>
         </div>
@@ -113,45 +137,43 @@ const subscribeEntries = () => {
               :rows="50"
               :rowsPerPageOptions="[5, 10, 20, 50]"
             >
-              <Column header="Number" style="width: 15%">
+            <Column header="Locatie" style="width: 20%">
+              <template #body="slotProps">
+                <div class="textSize">
+                  {{ slotProps.data.locatie }}
+                </div>
+              </template>
+            </Column>
+              <Column header="Hoeveelheid" style="width: 15%">
                 <template #body="slotProps">
-                  {{ slotProps.data.id }}
+                  {{ slotProps.data.aantal }}
                 </template>
               </Column>
-              <Column header="Naam" style="width: 30%">
+              <Column header="Laatste update" style="width: 15%">
                 <template #body="slotProps">
-                  <div class="textSize">
-                    {{ slotProps.data.naam }}
-                  </div>
+                  {{ slotProps.data.created_at }}
                 </template>
               </Column>
-              <Column header="Locatie" style="width: 100%">
-                <template #body="slotProps">
-                  <div class="textSize">
-                    {{ slotProps.data.locatie }}
-                  </div>
-                </template>
-              </Column>
-              <Column v-if="!admin" header="Actions" style="width: 50%">
+              <Column v-if="!admin" header="Actions" style="width: 20%">
                 <template #body="slotProps">
                   <form @submit.prevent="onclickUpdate(slotProps.data.id)">
-                    <InputText
+                    <InputNumber
                       class="mr-5"
-                      v-model="wolfUpdates[slotProps.data.id]"
+                      v-model.number="wolfUpdates[slotProps.data.id]"
                       required
-                      v-tooltip.top="'New wolf content'"
+                      v-tooltip.top="'Hoeveel wolven?'"
                     />
                     <Button
                       type="submit"
                       class="!py-1"
-                      label="Edit"
-                      v-tooltip.top="'Edit the wolf'"
+                      label="Voeg toe"
+                      v-tooltip.top="'Voeg de wolven toe'"
                     />
                     <Button
                       class="!py-1 m-2"
                       label="Delete"
                       @click="onclickDelete(slotProps.data.id)"
-                      v-tooltip.top="'Delete the wolf'"
+                      v-tooltip.top="'Verwijder de wolven '"
                     />
                   </form>
                 </template>

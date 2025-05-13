@@ -16,6 +16,7 @@ declare module 'vue' {
     DataTable: typeof import('primevue/datatable')['default']
     Fieldset: typeof import('primevue/fieldset')['default']
     Image: typeof import('primevue/image')['default']
+    InputNumber: typeof import('primevue/inputnumber')['default']
     InputText: typeof import('primevue/inputtext')['default']
     MainNavbar: typeof import('./src/components/MainNavbar.vue')['default']
     MegaMenu: typeof import('primevue/megamenu')['default']

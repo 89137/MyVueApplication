@@ -36,6 +36,10 @@ const items = ref([
     label: 'SubPage',
     route: 'SubPage',
   },
+  {
+    label: 'KaartPage',
+    route: 'KaartPage',
+  },
 ])
 
 const isActiveRoute = (itemRoute: string) => route.name === itemRoute
