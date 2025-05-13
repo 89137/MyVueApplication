@@ -4,7 +4,8 @@ import { onMounted } from 'vue'
 import { useWolf } from '@/utils/wolf'
 
 // Import the components
-const { wolfTable, isLoading, wolfUpdates, loadEntries, onclickUpdate } = useWolf()
+const { wolfTable, isLoading, wolfUpdates, totaalAantalWolven, loadEntries, onclickUpdate } =
+  useWolf()
 
 onMounted(() => {
   loadEntries()
@@ -14,7 +15,10 @@ onMounted(() => {
 <template>
   <Skeleton v-if="isLoading" height="80vh" />
   <Card v-else>
-    <template #title> Wolf map</template>
+    <template #title>
+      Wolf map <br />
+      totaal aantal wolven: {{ totaalAantalWolven }}</template
+    >
     <template #content>
       <div class="max-h-[90vh] overflow-auto calc-flex">
         <div class="flex flex-row calc-flex">

@@ -1,6 +1,6 @@
 
 
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
 import { useToast } from 'primevue'
 import { showError, showSuccess } from '@/utils/toast'
@@ -102,6 +102,10 @@ export function useWolf() {
       .subscribe()
   }
 
+  const totaalAantalWolven = computed(() =>
+    wolfTable.value.reduce((sum, wolf) => sum + (wolf.aantal || 0), 0)
+  )
+
   return {
     wolfTable,
     isLoading,
@@ -110,6 +114,7 @@ export function useWolf() {
     loadEntries,
     onclickAdd,
     onclickDelete,
-    onclickUpdate
+    onclickUpdate,
+    totaalAantalWolven
   }
 }
