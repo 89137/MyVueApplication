@@ -3,49 +3,27 @@ import { onMounted } from 'vue'
 // Import the custom composable
 import { useWolf } from '@/utils/wolf'
 
-const {
-  wolfTable,
-  // isLoading,
-  wolfInputAantal,
-  wolfUpdates,
-  loadEntries,
-  onclickAdd,
-  onclickDelete,
-  onclickUpdate,
-} = useWolf()
+// Import the components
+const { wolfTable, isLoading, wolfUpdates, loadEntries, onclickUpdate } = useWolf()
 
 onMounted(() => {
   loadEntries()
 })
-
-function handleClick(index: number) {
-  alert(index + 1)
-}
 </script>
 
 <template>
-  <Card>
+  <Skeleton v-if="isLoading" height="80vh" />
+  <Card v-else>
     <template #title> Wolf map</template>
     <template #content>
-      <div class="max-h-[68vh] overflow-auto">
-        <div class="flex flex-row">
-          <div class="relative w-full max-w-xl border mr-3">
+      <div class="max-h-[90vh] overflow-auto calc-flex">
+        <div class="flex flex-row calc-flex">
+          <div class="relative w-full max-w-xl border rounded-md mr-3">
             <!-- Afbeelding -->
-            <img src="/src/assets/KaartNL.jpeg" class="w-full h-auto" alt="Grid map" />
-
-            <!-- Overlay grid -->
-            <div class="absolute top-0 left-0 w-full grid grid-cols-3 grid-rows-3 gap-2 p-4 calc">
-              <Button
-                v-for="(item, index) in 9"
-                :key="index"
-                :label="(index + 1).toString()"
-                class="w-full h-full"
-                @click="handleClick(index)"
-                unstyled
-              />
-            </div>
+            <img src="/src/assets/kaartnummer.png" class="w-full h-auto" alt="Grid map" />
           </div>
-          <div class="border w-full">
+          <!-- Data Table -->
+          <div class="border w-full calc-flex">
             <DataTable
               :value="wolfTable"
               scrollable
@@ -75,6 +53,7 @@ function handleClick(index: number) {
                       class="mr-5"
                       v-model.number="wolfUpdates[slotProps.data.id]"
                       required
+                      size="small"
                       v-tooltip.top="'Hoeveel wolven?'"
                     />
                     <Button
@@ -92,17 +71,6 @@ function handleClick(index: number) {
       </div>
     </template>
   </Card>
-  <Card class="mt-2">
-    <template #content>
-      <div class="flex items-center justify-center">
-        <p class="text-1xl pr-2">Add a wolf:</p>
-        <form @submit.prevent="onclickAdd" class="formScreen">
-          <InputNumber class="mr-3" name="name" v-model.number="wolfInputAantal" required />
-          <Button type="submit" label="Add" v-tooltip="'Add a wolf'" />
-        </form>
-      </div>
-    </template>
-  </Card>
 </template>
 
 <style scoped>
@@ -116,7 +84,16 @@ button {
 }
 
 .calc {
-  height: calc(100vw - 30em);
+  height: calc(100vh - 20em);
   max-height: 45em;
+}
+.calc-table {
+  width: calc(100vh - 50em) !important;
+}
+
+@media only screen and (max-width: 1250px) {
+  .calc-flex {
+    flex-direction: column;
+  }
 }
 </style>
