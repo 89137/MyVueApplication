@@ -27,7 +27,7 @@ onMounted(() => {
             <img src="/src/assets/kaartnummer.png" class="w-full h-auto" alt="Grid map" />
           </div>
           <!-- Data Table -->
-          <div class="border w-full calc-flex">
+          <div class="border w-full calc-flex rounded-md">
             <DataTable
               :value="wolfTable"
               scrollable
