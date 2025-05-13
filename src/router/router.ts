@@ -10,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/Home',
+      redirect: '/KaartPage',
     },
     {
       path: '/Home',
