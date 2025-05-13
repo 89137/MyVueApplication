@@ -1,27 +1,11 @@
-import HomeView from '@/views/HomeView.vue'
-import SubPage from '@/views/SubPage.vue'
+// Import the necessary modules from Vue Router
 import KaartPage from '@/views/KaartPage.vue'
-
 import { createRouter, createWebHistory } from 'vue-router'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
-    {
-      path: '/',
-      redirect: '/Home',
-    },
-    {
-      path: '/Home',
-      name: 'Home',
-      component: HomeView,
-    },
-    {
-      path: '/SubPage',
-      name: 'SubPage',
-      component: SubPage,
-    },
     {
       path: '/KaartPage',
       name: 'KaartPage',

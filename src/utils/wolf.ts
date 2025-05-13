@@ -13,6 +13,7 @@ export function useWolf() {
   const wolfInputAantal = ref<number>()
   const wolfUpdates = ref<Record<number, number>>({})
 
+  // Load the initial entries
   const loadEntries = async () => {
     const { data, error } = await supabase.from('wolfTable').select('*')
 
@@ -27,6 +28,7 @@ export function useWolf() {
     }
   }
 
+  // Function to add a new entry
   const onclickAdd = async () => {
     const { error } = await supabase.from('wolfTable').insert([{ aantal: wolfInputAantal.value }])
     wolfInputAantal.value = 0
@@ -37,15 +39,18 @@ export function useWolf() {
     }
   }
 
-  const onclickDelete = async (id: number) => {
-    const { error } = await supabase.from('wolfTable').delete().eq('id', id)
-    if (error) {
-      showError(toast, 'Failed to delete content')
-    } else {
-      showSuccess(toast, 'Content verwijderd')
-    }
-  }
+  // Function to delete an entry temporarily commented out
 
+  // const onclickDelete = async (id: number) => {
+  //   const { error } = await supabase.from('wolfTable').delete().eq('id', id)
+  //   if (error) {
+  //     showError(toast, 'Failed to delete content')
+  //   } else {
+  //     showSuccess(toast, 'Content verwijderd')
+  //   }
+  // }
+
+  // Function to update an entry
   const onclickUpdate = async (id: number) => {
     const inputValue = Number(wolfUpdates.value[id])
     if (isNaN(inputValue)) {
@@ -64,20 +69,11 @@ export function useWolf() {
       return
     }
 
-    const updatedAantal = data.aantal + inputValue
-
-    const { error: updateError } = await supabase
-      .from('wolfTable')
-      .update({ aantal: updatedAantal })
-      .eq('id', id)
-
-    if (updateError) {
-      showError(toast, 'Update gefaald')
-    } else {
-      showSuccess(toast, 'Wolves toegevoegd')
-      wolfUpdates.value[id] = ''
-    }
+    wolfUpdates.value[id] = 0
   }
+
+  // Function to subscribe to changes in the table meaning
+  // it will update the UI when there are changes in the database
 
   const subscribeEntries = () => {
     supabase
@@ -102,6 +98,7 @@ export function useWolf() {
       .subscribe()
   }
 
+  // Return the reactive variables and functions
   return {
     wolfTable,
     isLoading,
@@ -109,7 +106,7 @@ export function useWolf() {
     wolfUpdates,
     loadEntries,
     onclickAdd,
-    onclickDelete,
+    // onclickDelete,
     onclickUpdate
   }
 }
