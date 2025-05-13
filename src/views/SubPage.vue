@@ -17,7 +17,6 @@ const isLoading = ref(true)
 const wolfInputAantal = ref<number>()
 const wolfUpdates = ref<Record<string, string>>({})
 
-
 onMounted(() => {
   loadEntries()
 })
@@ -111,7 +110,6 @@ const subscribeEntries = () => {
     })
     .subscribe()
 }
-
 </script>
 
 <template>
@@ -121,10 +119,10 @@ const subscribeEntries = () => {
       <div v-else>
         <div class="flex items-center flex-col">
           <form @submit.prevent="onclickAdd" class="formScreen">
-              <p class="text-1xl pr-1">Add a wolf:</p>
-              <InputNumber class="mr-3" name="name" v-model.number="wolfInputAantal" required />
-              <Button type="submit" label="Add" v-tooltip="'Add a wolf'" />
-            </form>
+            <p class="text-1xl pr-1">Add a wolf:</p>
+            <InputNumber class="mr-3" name="name" v-model.number="wolfInputAantal" required />
+            <Button type="submit" label="Add" v-tooltip="'Add a wolf'" />
+          </form>
         </div>
         <Fieldset legend="My wolfs">
           <div class="tableHeight">
@@ -137,13 +135,13 @@ const subscribeEntries = () => {
               :rows="50"
               :rowsPerPageOptions="[5, 10, 20, 50]"
             >
-            <Column header="Locatie" style="width: 20%">
-              <template #body="slotProps">
-                <div class="textSize">
-                  {{ slotProps.data.locatie }}
-                </div>
-              </template>
-            </Column>
+              <Column header="Locatie" style="width: 20%">
+                <template #body="slotProps">
+                  <div class="textSize">
+                    {{ slotProps.data.locatie }}
+                  </div>
+                </template>
+              </Column>
               <Column header="Hoeveelheid" style="width: 15%">
                 <template #body="slotProps">
                   {{ slotProps.data.aantal }}
@@ -178,7 +176,6 @@ const subscribeEntries = () => {
                   </form>
                 </template>
               </Column>
-
             </DataTable>
           </div>
         </Fieldset>

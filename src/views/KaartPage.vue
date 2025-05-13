@@ -30,12 +30,12 @@ onMounted(() => {
               scrollHeight="calc(100vh - 25em)"
               paginator
               stripedRows
-              :rows="50"
-              :rowsPerPageOptions="[5, 10, 20, 50]"
+              :rows="3"
+              :rowsPerPageOptions="[3, 5, 9]"
             >
               <Column header="Locatie" style="width: 20%">
                 <template #body="slotProps">
-                  <div class="textSize">
+                  <div class="textSize pl-3">
                     {{ slotProps.data.locatie }}
                   </div>
                 </template>
