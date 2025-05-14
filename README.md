@@ -50,9 +50,10 @@ SUPABASE_URL_KEY=
 SUPABASE_ANON_KEY=
 ```
 
-### DataTable setup
+## DataTable setup
 
 You can set your Datatable up as you see fit.
+Import or create your rows
 
 Dont forget:
-After you have set it up you need to create policies for read and write acces
+After you have set up your Datatable you need to create policies for read and write access
