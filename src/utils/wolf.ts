@@ -15,7 +15,7 @@ export function useWolf() {
 
 
 
-
+ // loadEntries is called
   const loadEntries = async () => {
     const { data, error } = await supabase.from('wolfTable').select('*')
 
@@ -30,32 +30,19 @@ export function useWolf() {
     }
   }
 
-  const onclickAdd = async () => {
-    const { error } = await supabase.from('wolfTable').insert([
-      {
-        aantal: wolfInputAantal.value,
-        created_at: new Date().toISOString()
-      }
-    ])
 
-    wolfInputAantal.value = 0
+  // deletes the selected wolf from the database
+  // commented out because its not in use but works in theory
+  // const onclickDelete = async (id: number) => {
+  //   const { error } = await supabase.from('wolfTable').delete().eq('id', id)
+  //   if (error) {
+  //     showError(toast, 'Failed to delete content')
+  //   } else {
+  //     showSuccess(toast, 'Content verwijderd')
+  //   }
+  // }
 
-    if (error) {
-      showError(toast, 'Failed to add content')
-    } else {
-      showSuccess(toast, 'Content toegevoegd')
-    }
-  }
-
-  const onclickDelete = async (id: number) => {
-    const { error } = await supabase.from('wolfTable').delete().eq('id', id)
-    if (error) {
-      showError(toast, 'Failed to delete content')
-    } else {
-      showSuccess(toast, 'Content verwijderd')
-    }
-  }
-
+  // updates the number of wolves by doing a calculation
   const onclickUpdate = async (id: number) => {
     const inputValue = Number(wolfUpdates.value[id])
     if (isNaN(inputValue)) {
@@ -89,6 +76,8 @@ export function useWolf() {
     }
   }
 
+  // updates the page when the database changes including when a change is made on the page
+  // by updating a wolf
   const subscribeEntries = () => {
     supabase
       .channel('naam-channel')
@@ -112,6 +101,7 @@ export function useWolf() {
       .subscribe()
   }
 
+  // constant counts the total number of wolves
   const totaalAantalWolven = computed(() =>
     wolfTable.value.reduce((sum, wolf) => sum + (wolf.aantal || 0), 0)
   )
@@ -122,8 +112,7 @@ export function useWolf() {
     wolfInputAantal,
     wolfUpdates,
     loadEntries,
-    onclickAdd,
-    onclickDelete,
+    // onclickDelete, commented out because its not in use but works in theory
     onclickUpdate,
     totaalAantalWolven
   }
