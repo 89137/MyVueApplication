@@ -77,7 +77,7 @@ export function useWolf() {
     if (updateError) {
       showError(toast, 'Update gefaald')
     } else {
-      showSuccess(toast, 'Wolves toegevoegd')
+      showSuccess(toast, 'Wolven toegevoegd')
       wolfUpdates.value[id] = null
     }
   }
