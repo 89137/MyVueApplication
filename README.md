@@ -2,18 +2,6 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
 ## Project Setup
 
 ```sh
@@ -32,8 +20,28 @@ npm run dev
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+# Vue-Supabase setup
+
+## install as a package
 
 ```sh
-npm run lint
+npm install @supabase/supabase-js
 ```
+
+## create a .env and a supabaseClient.ts file in root
+
+### supabaseClient.ts
+
+```sh
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = import.meta.env
+const supabaseAnonKey = import.meta.env
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+```
+
+### .env
+
+SUPABASE_URL_KEY=
+SUPABASE_ANON_KEY=
