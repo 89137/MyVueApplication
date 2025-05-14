@@ -58,3 +58,7 @@ SUPABASE_ANON_KEY=
 You can set your Datatable up as you see fit. Import or create your rows.
 
 Dont forget: After you have set up your Datatable you need to create policies for read and write access.
+
+## For more indepth info on setting up Supabase
+
+go to their documentation: https://supabase.com/docs. Here u can find anything u would need
