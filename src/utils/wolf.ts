@@ -31,8 +31,15 @@ export function useWolf() {
   }
 
   const onclickAdd = async () => {
-    const { error } = await supabase.from('wolfTable').insert([{ aantal: wolfInputAantal.value }])
+    const { error } = await supabase.from('wolfTable').insert([
+      {
+        aantal: wolfInputAantal.value,
+        created_at: new Date().toISOString()
+      }
+    ])
+
     wolfInputAantal.value = 0
+
     if (error) {
       showError(toast, 'Failed to add content')
     } else {

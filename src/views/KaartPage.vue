@@ -19,26 +19,26 @@ onMounted(() => {
 // Function to store the grid number
 const selectedLocation: Ref<number | null> = ref(null)
 
-const scrollToRow = (i: number) => {
-  selectedLocation.value = i
+const scrollToRow = (number: number) => {
+  selectedLocation.value = number
 
   // Scroll to the row in the table
-  const row = document.getElementById(`row-${i}`)
+  const row = document.getElementById(`row-${number}`)
   if (row) {
     row.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    showInfo(toast, `Nummer ${i} is geselecteerd`)
+    showInfo(toast, `Nummer ${number} is geselecteerd`)
   }
 
   // Add highlight to column
-  const columnElements = document.querySelectorAll(`[data-row="${i}"]`)
-  columnElements.forEach((el) => {
-    ;(el as HTMLElement).classList.add('highlight') // Cast to HTMLElement
+  const columnElements = document.querySelectorAll(`[data-row="${number}"]`)
+  columnElements.forEach((element) => {
+    ;(element as HTMLElement).classList.add('highlight') // Cast to HTMLElement
   })
 
   // Reset highlight after 3 seconds
   setTimeout(() => {
-    columnElements.forEach((el) => {
-      ;(el as HTMLElement).classList.remove('highlight') // Cast to HTMLElement
+    columnElements.forEach((element) => {
+      ;(element as HTMLElement).classList.remove('highlight') // Cast to HTMLElement
     })
   }, 3000)
 }
@@ -58,14 +58,14 @@ const scrollToRow = (i: number) => {
             <!-- Afbeelding -->
             <div class="grid grid-cols-3">
               <img
-                v-for="i in 9"
-                :key="i"
-                :src="`/src/assets/kaartimages/kaartimage${i}.png`"
-                :alt="`Kaart image ${i}`"
-                :id="`kaartimage${i}`"
+                v-for="number in 9"
+                :key="number"
+                :src="`/src/assets/kaartimages/kaartimage${number}.png`"
+                :alt="`Kaart image ${number}`"
+                :id="`kaartimage${number}`"
                 class="w-full h-auto cursor-pointer transition-all duration-300 :hover:border"
-                @click="scrollToRow(i)"
-                :data-row="wolfTable[i - 1].locatie"
+                @click="scrollToRow(number)"
+                :data-row="wolfTable[number - 1].locatie"
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ const scrollToRow = (i: number) => {
               stripedRows
               :rows="9"
             >
-              <Column header="Locatie" style="width: 20%">
+              <Column header="Locatie" style="width: 10%">
                 <template #body="slotProps">
                   <div
                     class="textSize pl-3 transition-all duration-300"
@@ -96,7 +96,12 @@ const scrollToRow = (i: number) => {
                   <div>{{ slotProps.data.aantal }}</div>
                 </template>
               </Column>
-              <Column header="Actions" style="width: 20%">
+              <Column header="Laatste update" style="width: 15%">
+                <template #body="slotProps">
+                  <div>{{ slotProps.data.created_at }}</div>
+                </template>
+              </Column>
+              <Column header="Actions" style="width: 15%">
                 <template #body="slotProps">
                   <form @submit.prevent="onclickUpdate(slotProps.data.id)">
                     <InputNumber
@@ -133,10 +138,6 @@ button {
   cursor: pointer;
 }
 
-.calc {
-  height: calc(100vh - 20em);
-  max-height: 45em;
-}
 .calc-table {
   width: calc(100vh - 50em) !important;
 }
@@ -149,7 +150,7 @@ button {
 
 /* Highlight class */
 .highlight {
-  background-color: rgba(190, 196, 76, 0.741);
+  background-color: #ffeb3b;
   transition: background-color 0.3s ease;
 }
 </style>
