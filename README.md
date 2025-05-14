@@ -49,3 +49,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 SUPABASE_URL_KEY=
 SUPABASE_ANON_KEY=
 ```
+
+### DataTable setup
+
+You can set your Datatable up as you see fit.
+
+Dont forget:
+After you have set it up you need to create policies for read and write acces
