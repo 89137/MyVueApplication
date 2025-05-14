@@ -30,6 +30,8 @@ npm install @supabase/supabase-js
 
 ## create a .env and a supabaseClient.ts file in root
 
+You can find your URL and ANON keys in the settings menu of Supabase.
+
 ### supabaseClient.ts
 
 ```sh
@@ -43,5 +45,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 ### .env
 
+```sh
 SUPABASE_URL_KEY=
 SUPABASE_ANON_KEY=
+```
