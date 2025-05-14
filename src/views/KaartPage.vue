@@ -60,7 +60,7 @@ const scrollToRow = (number: number) => {
               <img
                 v-for="number in 9"
                 :key="number"
-                :src="`/src/assets/kaartimages/kaartimage${number}.png`"
+                :src="`/kaartimages/kaartimage${number}.png`"
                 :alt="`Kaart image ${number}`"
                 :id="`kaartimage${number}`"
                 class="w-full h-auto cursor-pointer transition-all duration-300 :hover:border"
